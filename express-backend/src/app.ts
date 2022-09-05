@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 
+import products from './routes/products';
 import users from './routes/users';
 
 // Create Express server
@@ -17,6 +18,7 @@ app.use(
 );
 
 // Routes
+app.use('/api/products', products);
 app.use('/api/users', users);
 
 export default app;
