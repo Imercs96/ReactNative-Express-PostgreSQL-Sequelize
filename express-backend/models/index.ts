@@ -1,4 +1,4 @@
-import { CourseModel } from './Courses';
-import { PriceModel } from './Prices';
+import Product from './Product';
+import User from './User';
 
-export { CourseModel, PriceModel };
+export { Product, User };
