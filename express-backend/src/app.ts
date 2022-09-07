@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 
 import products from './routes/products';
+import userFavorites from './routes/userFavorites';
 import users from './routes/users';
 
 // Create Express server
@@ -20,5 +21,6 @@ app.use(
 // Routes
 app.use('/api/products', products);
 app.use('/api/users', users);
+app.use('/api/favorites', userFavorites);
 
 export default app;

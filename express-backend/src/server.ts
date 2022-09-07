@@ -1,5 +1,4 @@
 import { sequelize } from '../db/index';
-import Product from '../models/Product';
 import app from './app';
 
 /* Start Express server */
