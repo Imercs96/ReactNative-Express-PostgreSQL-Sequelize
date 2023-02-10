@@ -4,22 +4,22 @@ import * as usersController from '../controllers/users';
 
 const router: Router = Router();
 
-// GET all data 
+// GET all users 
 router.get('/', usersController.getUsers);
 
-// GET data by ID
+// GET user by ID
 router.get('/:id', usersController.getUserById);
 
-// DELETE data by ID
+// DELETE user by ID
 router.delete('/:id', usersController.deleteUserById);
 
-// POST data
+// POST user
 router.post('/', usersController.addUser);
 
-// PUT data by ID
+// PUT user by ID
 router.put('/:id', usersController.putUserById);
 
-// PATCH data by ID
+// PATCH user by ID
 router.patch('/:id', usersController.patchUserById);
 
 export default router;
