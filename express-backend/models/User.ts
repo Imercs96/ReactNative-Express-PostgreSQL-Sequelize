@@ -42,9 +42,7 @@ export default User.init({
     allowNull: false,
     unique: true,
     validate: {
-      isAlphanumeric: true,
       notEmpty: true,
-      len: [ 8, 20 ],
       notNull: {
         msg: 'Please enter your password'
       }

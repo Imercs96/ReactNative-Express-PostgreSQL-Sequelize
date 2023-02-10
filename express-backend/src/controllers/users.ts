@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
+import { encryptPassword } from '../../bcrypt';
 import User from '../../models/User';
 import { UserDataType } from '../interfaces/users';
 
@@ -59,7 +60,10 @@ async (req: Request<UserDataType, UserDataType, UserDataType>, res: Response, ne
   try {
     const { email, firstName, lastName, password, username, address, city, dateOfBirth, image, phone, state, zipCode } = req?.body;
 
-    const response = await User.create({ email, firstName, lastName, password, username, address, city, dateOfBirth, image, phone, state, zipCode });
+    const encryptPass: string = await encryptPassword(password);
+    console.log({ encryptPass });
+
+    const response = await User.create({ email, firstName, lastName, password: encryptPass, username, address, city, dateOfBirth, image, phone, state, zipCode });
 
     response && res.status(200).send(response);
 
