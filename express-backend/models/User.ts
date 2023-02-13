@@ -57,9 +57,14 @@ export default User.init({
       notEmpty: true,
     }
   },
+  salt: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   phone: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
+    unique: true,
   },
   dateOfBirth: {
     type: DataTypes.STRING, 

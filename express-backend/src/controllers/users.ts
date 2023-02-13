@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { encryptPassword } from '../../bcrypt';
+import { saltGenerated } from '../../bcrypt/index';
 import User from '../../models/User';
 import { UserDataType } from '../interfaces/users';
 
 // GET all users
-const getUsers: (req: Request, res: Response, next: NextFunction) =>           Promise<Response<UserDataType, Record<string, UserDataType>> | void> = 
+const getUsers: (req: Request, res: Response, next: NextFunction) => Promise<Response<UserDataType, Record<string, UserDataType>> | void> = 
 async (req: Request, res: Response, next: NextFunction) => {
   try {
     const response = await User.findAll();
@@ -60,10 +61,9 @@ async (req: Request<UserDataType, UserDataType, UserDataType>, res: Response, ne
   try {
     const { email, firstName, lastName, password, username, address, city, dateOfBirth, image, phone, state, zipCode } = req?.body;
 
-    const encryptPass: string = await encryptPassword(password);
-    console.log({ encryptPass });
+    const encryptPass: string = await encryptPassword(password, saltGenerated);
 
-    const response = await User.create({ email, firstName, lastName, password: encryptPass, username, address, city, dateOfBirth, image, phone, state, zipCode });
+    const response = await User.create({ email, firstName, lastName, password: encryptPass, username, salt: saltGenerated, address, city, dateOfBirth, image, phone, state, zipCode });
 
     response && res.status(200).send(response);
 
