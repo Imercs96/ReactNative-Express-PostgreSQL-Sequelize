@@ -1,19 +1,14 @@
 import jwt from 'jsonwebtoken';
 
-const SECRET: string = 'splash';
+import { UserDataType } from '../src/interfaces/users';
 
-const signOptions: jwt.SignOptions | undefined = { expiresIn: '2h' };
+// Secret pass
+const SECRET: string = 'splash_art_deco';
 
-const sign = (data: any) => { 
-  return jwt.sign(data, SECRET, signOptions); 
-};
+// Expired In 5 minutes
+const signOptions: jwt.SignOptions | undefined = { expiresIn: '300000' };
 
-const verify = (token: string) => {
-  return jwt.verify(token, SECRET);
-};
-
-const token = sign({ 'email': 'pepe@pepe.com', 'password': '123434'});
-console.log({ token });
-
-const validate = verify(token);
-console.log({ validate });
+// Sign Token
+export const sign: (data: UserDataType) => string = (data) => jwt.sign(data, SECRET, signOptions);
+// Verify Token
+export const verify: (token: string) => string | jwt.JwtPayload = (token: string) => jwt.verify(token, SECRET);

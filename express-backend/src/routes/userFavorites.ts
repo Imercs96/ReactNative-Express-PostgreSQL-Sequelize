@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import * as userFavoritesController from '../controllers/userFavorites';
+import { getAuthUser } from '../middlewares/auth';
 
 const router: Router = Router();
 
@@ -8,12 +9,18 @@ const router: Router = Router();
 router.get('/', userFavoritesController.getUserFavorites);
 
 // GET user favorites by ID
-router.get('/:id', userFavoritesController.getUserFavoritesById);
+router
+  .use(getAuthUser)
+  .get('/:id', userFavoritesController.getUserFavoritesById);
 
 // DELETE user favorites by ID
-router.delete('/:id', userFavoritesController.deleteUserFavoriteById);
+router
+  .use(getAuthUser)
+  .delete('/:id', userFavoritesController.deleteUserFavoriteById);
 
 // POST user favorite
-router.post('/', userFavoritesController.addUserFavorites);
+router
+  .use(getAuthUser)
+  .post('/', userFavoritesController.addUserFavorites);
 
 export default router;

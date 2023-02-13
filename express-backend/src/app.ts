@@ -1,13 +1,12 @@
-import '../jwt/index';
-import '../bcrypt/index';
-
+// Modules
 import express from 'express';
 import path from 'path';
 
+// Express Routes
+import auth from './routes/auth';
 import products from './routes/products';
 import userFavorites from './routes/userFavorites';
 import users from './routes/users';
-
 
 // Create Express server
 const app = express();
@@ -26,5 +25,6 @@ app.use(
 app.use('/api/products', products);
 app.use('/api/users', users);
 app.use('/api/favorites', userFavorites);
+app.use('/api/auth', auth);
 
 export default app;

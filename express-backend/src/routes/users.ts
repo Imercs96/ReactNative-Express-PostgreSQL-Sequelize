@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import * as usersController from '../controllers/users';
+import { getAuthUser } from '../middlewares/auth';
 
 const router: Router = Router();
 
@@ -17,9 +18,13 @@ router.delete('/:id', usersController.deleteUserById);
 router.post('/', usersController.addUser);
 
 // PUT user by ID
-router.put('/:id', usersController.putUserById);
+router
+  .use(getAuthUser)
+  .put('/:id', usersController.putUserById);
 
 // PATCH user by ID
-router.patch('/:id', usersController.patchUserById);
+router
+  .use(getAuthUser)
+  .patch('/:id', usersController.patchUserById);
 
 export default router;
