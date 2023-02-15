@@ -6,8 +6,8 @@ import User from '../../models/User';
 import { UserDataType } from '../interfaces/users';
 
 // POST auth user
-const authUser = 
-async (req: Request, res: Response, next: NextFunction) => {
+const authUser: (req: Request, res: Response, next: NextFunction) => Promise<Response<string, Record<string, string>>> = 
+async (req: Request, res: Response) => {
   try {
     const { email, password, username } = req?.body;
     const userResponse = await User.findOne({ where: { email, username }});
@@ -31,7 +31,6 @@ async (req: Request, res: Response, next: NextFunction) => {
     else {
       return res.status(401).send({ message: 'Error logging in. The email address or username is not correct'});
     }
-    next();
   } catch(error) {
     return res.status(400).send(error);
   }

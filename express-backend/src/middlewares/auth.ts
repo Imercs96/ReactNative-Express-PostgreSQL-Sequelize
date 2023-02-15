@@ -13,3 +13,22 @@ export const getAuthUser: (req: Request, res: Response, next: NextFunction) => v
     return res.status(400).send(error);
   }
 };
+
+export const verifyAuthenticationApiKey: (req: Request, res: Response, next: NextFunction) => void = (req, res, next) => {
+  try {
+    const xApiKey = req?.headers['x-api-key'] as string;
+    const env: string | undefined = process?.env?.NODE_ENV;
+    const developmentApiKey: string | undefined = 
+      (env == 'development') ? process.env.DEVELOPMENT_API_KEY : process.env.PRODUCTION_API_KEY;
+      
+    if(xApiKey && developmentApiKey) {
+      const regexExpression: RegExp = new RegExp(developmentApiKey);
+      const validateExpression: boolean = regexExpression.test(xApiKey);
+      if(!validateExpression) 
+        return res.status(401).send({ error: '401 Non-Authorized Status. Please check if your api-key is correctly configured'});
+      return next();
+    }
+  } catch(error){
+    return res.status(400).send(error);
+  }
+};
