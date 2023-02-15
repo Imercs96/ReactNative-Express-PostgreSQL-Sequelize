@@ -7,12 +7,11 @@ import { UserFavoritesDataType } from '../interfaces/userFavorites';
 
 // GET all users
 const getUserFavorites: (req: Request, res: Response, next: NextFunction) =>     Promise<Response<UserFavoritesDataType, Record<string, UserFavoritesDataType>> | void> = 
-async (req: Request, res: Response, next: NextFunction) => {
+async (req: Request, res: Response) => {
   try {
     const response = await UserFavorites.findAll();
     response && res.status(200).send(response);
 
-    next();
   } catch(error) {
     return res.status(400).send(error);
   }
@@ -20,7 +19,7 @@ async (req: Request, res: Response, next: NextFunction) => {
 
 // GET user by ID
 const getUserFavoritesById: (req: Request, res: Response, next: NextFunction) => Promise<Response<UserFavoritesDataType, Record<string, UserFavoritesDataType>> | void>
-= async(req: Request, res: Response, next: NextFunction) => {
+= async(req: Request, res: Response) => {
   try {
     const { id } = req?.params;
 
@@ -36,7 +35,6 @@ const getUserFavoritesById: (req: Request, res: Response, next: NextFunction) =>
       else res.status(404).send({ error: 'Favorite products do not found' });
     }
     else res.status(404).send({ error: `Do not exists favorites for user with id ${ id }` });
-    next();
   } catch(error) {
     return res.status(400).send(error);
   }
@@ -44,7 +42,7 @@ const getUserFavoritesById: (req: Request, res: Response, next: NextFunction) =>
 
 // DELETE data by ID
 const deleteUserFavoriteById: (req: Request, res: Response, next: NextFunction) => Promise<Response<UserFavoritesDataType, Record<string, UserFavoritesDataType>> | void>
-= async (req: Request, res: Response, next: NextFunction) => {
+= async (req: Request, res: Response) => {
   try {
     const { id } = req?.params;
     const { productId } = req?.body;
@@ -63,8 +61,6 @@ const deleteUserFavoriteById: (req: Request, res: Response, next: NextFunction) 
       else res.status(404).send({ error: 'Favorite products do not found' });
     }
     else res.status(404).send({ error: `Do not exists favorites for user with id ${ id }` });
-
-    next();
   } catch(error) {
     return res.status(400).send(error);
   }
@@ -73,15 +69,13 @@ const deleteUserFavoriteById: (req: Request, res: Response, next: NextFunction) 
 // POST data
 const addUserFavorites: (req: Request<UserFavoritesDataType, UserFavoritesDataType, UserFavoritesDataType>, res: Response, next: NextFunction) => 
   Promise<Response<UserFavoritesDataType, Record<string, UserFavoritesDataType>> | void> =
-async (req: Request<UserFavoritesDataType, UserFavoritesDataType, UserFavoritesDataType>, res: Response, next: NextFunction) => {
+async (req: Request<UserFavoritesDataType, UserFavoritesDataType, UserFavoritesDataType>, res: Response) => {
   try {
     const { productId, userId } = req?.body;
 
     const response = await UserFavorites.create({ productId, userId });
 
     response && res.status(200).send(response);
-
-    next();
   } catch(error) {
     return res.status(400).send(error);
   }
