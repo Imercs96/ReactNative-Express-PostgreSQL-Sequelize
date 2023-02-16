@@ -1,3 +1,4 @@
+// Module
 import bcrypt from 'bcrypt';
 
 // Bcrypt hash password
@@ -8,8 +9,8 @@ async (password: string, salt: string) => {
 };
 
 // Salt generate
-const salt: string = bcrypt.genSaltSync();
+export const saltGenerated: string = bcrypt.genSaltSync();
 
 // Encrypt Password function
-export const encryptPassword: (password: string) => Promise<string> = 
-  (password) => hashPassword(password, salt);
+export const encryptPassword: (password: string, salt: string) => Promise<string> = 
+  (password, salt) => hashPassword(password, salt);
