@@ -28,6 +28,7 @@ export const verifyAuthenticationApiKey: (req: Request, res: Response, next: Nex
         return res.status(401).send({ error: '401 Non-Authorized Status. Please check if your api-key is correctly configured'});
       return next();
     }
+    return res.status(401).send({ error: '401 Non-Authorized Status. Please check if your api-key is correctly configured'});
   } catch(error){
     return res.status(400).send(error);
   }
