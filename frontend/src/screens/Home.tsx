@@ -1,6 +1,8 @@
 import { Text, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { useCountdown } from '../hooks/useCountdown';
+import { RootState } from '../redux-toolkit/app/store';
 
 export const Home = () => {
   const { days, hours, minutes, seconds } = useCountdown({ goalTime: 72000 });
