@@ -1,11 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
 
-import counterReducer from '../features/Counter';
+import authReducer, { AuthState } from '../features/auth';
+import counterReducer, { CounterState } from '../features/Counter';
 
+// Root State Return Props
+export interface RootStateProps {
+  counter: CounterState
+  auth: AuthState
+}
+
+// Store
 export const store: ToolkitStore = configureStore({
   reducer: {
-    counter: counterReducer
+    counter: counterReducer,
+    auth: authReducer
   }
 });
 

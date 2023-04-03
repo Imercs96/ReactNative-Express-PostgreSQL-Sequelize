@@ -29,12 +29,12 @@ export const useCountdown: ({ ...Props }: Props) => Time = ({ goalTime }) => {
   const currentTime: number = new Date().getTime();
 
   // Statements
-  const [countDown, setCountDown] = useState<number>(countDownTime - currentTime);
+  const [ countDown, setCountDown ] = useState<number>(countDownTime - currentTime);
   const setCountDownRef = useRef<() => void>(() => setCountDown(countDownTime - new Date().getTime()));
   
   useEffect(() => {
     if(countDown <= 0) return;
-    const interval: number = setInterval(setCountDownRef.current, 1000);
+    const interval: NodeJS.Timer = setInterval(setCountDownRef.current, 1000);
 
     return () => clearInterval(interval);
   }, [ countDown ]);

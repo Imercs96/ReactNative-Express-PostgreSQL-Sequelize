@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { encryptPassword } from '../../bcrypt';
-import { sign } from '../../jwt/index';
+import { expiresIn, sign } from '../../jwt/index';
 import User from '../../models/User';
 import { UserDataType } from '../interfaces/users';
 
@@ -23,7 +23,10 @@ async (req: Request, res: Response) => {
       if(responseJSON) {
         // Token
         const token: string = sign(responseJSON);
-        return res.status(200).send({ token, user: responseJSON });
+        return res.status(200).send({ 
+          jwt: { token, expiresIn }, 
+          user: responseJSON
+        });
       } else {
         return res.status(401).send({ message: 'Error logging in. The email address, password or username is not correct'});
       }
