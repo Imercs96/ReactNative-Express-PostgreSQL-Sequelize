@@ -5,13 +5,13 @@ import React from 'react';
 //Screens
 import { Home } from '../screens/Home';
 import { Launch } from '../screens/Launch';
-import { Login } from '../screens/Login';
 import { Register } from '../screens/Register';
+import { SignIn } from '../screens/SignIn';
 
 // Screen Stack props
 export type ScreenStackParams = {
   Launch: undefined;
-  Login: undefined;
+  SignIn: undefined;
   Register: undefined;
   Home: undefined;
 }
@@ -27,7 +27,7 @@ export const Navigation: () => JSX.Element = () => {
       }}
     >
       <Stack.Screen name="Home" component={ Home } options={{ headerShown: true }}/>
-      <Stack.Screen name="Login" component={ Login }/>
+      <Stack.Screen name="SignIn" component={ SignIn }/>
       <Stack.Screen name="Register" component={ Register } options={{ headerShown: true }}/>
       <Stack.Screen
         name="Launch"
